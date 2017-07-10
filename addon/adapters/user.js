@@ -1,4 +1,4 @@
-import ENV from '../config/environment';
+import ENV from 'ember-get-config';
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 const { keys } = Object;
@@ -14,7 +14,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
       return `${this.host}/v1/session`;
     }
   },
-  
+
   // conform with JSON merge patch strategy: "only send what you need"
   // https://tools.ietf.org/html/rfc7396
   updateRecord(store, type, snapshot) {
@@ -24,7 +24,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
     let changed = keys(snapshot.record.changedAttributes());
 
     serializer.serializeIntoHash(data, type, snapshot, { includeId: true });
-    
+
     keys(data).forEach(k => {
       if (!changed.includes(k.camelize())) {
         delete data[k];
@@ -33,7 +33,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
 
     return this.ajax(url, 'PATCH', { data: data });
   },
-  
+
   createRecord(store, type, {record, adapterOptions}) {
     // at this point we're still unauthenticated, so we need to manually add
     // required X-Provider and Authorization headers for sign up via third-

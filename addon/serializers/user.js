@@ -1,7 +1,9 @@
 import DS from 'ember-data';
+import Ember from 'ember';
+let underscore = Ember.String.underscore;
 
 export default DS.JSONAPISerializer.extend({
-  keyForAttribute: attr => attr.underscore(),
+  keyForAttribute: attr => underscore(attr),
   serialize(snapshot, options) {
     let { data : { attributes:json } } = this._super(snapshot, options);
     let typedPassword = snapshot.record.get('typedPassword');
