@@ -17,7 +17,7 @@ export default SessionService.extend({
       }
     } catch(e) {
       if (e.name === "SecurityError") {
-        console.warn("Cookies are disabled. No local settings allowed.");
+        console.warn("Cookies are disabled. No local settings allowed."); // eslint-disable-line no-console
         return RSVP.Promise.resolve(null);
       }
     }
