@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export function decamelizeKeys([ source ]/*, hash*/) {
   let dest = {};
-  Object.keys(source).forEach(k => dest[k.decamelize()] = source[k]);
+  Object.keys(source).forEach(k => dest[Ember.String.decamelize(k)] = source[k]);
   return dest;
 }
 
