@@ -1,8 +1,10 @@
 import DS from 'ember-data';
-import Ember from 'ember';
-let underscore = Ember.String.underscore;
+import { underscore } from 'ember-string';
 
 export default DS.JSONAPISerializer.extend({
+  attrs: {
+    facebookId: 'custom:facebook_id'
+  },
   keyForAttribute: attr => underscore(attr),
   serialize(snapshot, options) {
     let { data : { attributes:json } } = this._super(snapshot, options);
