@@ -5,6 +5,7 @@ import fetch from 'fetch';
 import getOwner from 'ember-owner/get';
 
 export default SessionService.extend({
+  attemptedTransition: null,
   syncBrowserId(report = true) {
     let legacyId;
     try {
@@ -22,7 +23,7 @@ export default SessionService.extend({
       }
     }
 
-    let { browserId } = this.get('data');
+    let browserId = this.get('data.browserId');
     if (legacyId || browserId) {
       if (report) {
         reportBrowserId(legacyId || browserId);
