@@ -6,7 +6,6 @@ import getOwner from 'ember-owner/get';
 
 export default SessionService.extend({
   syncBrowserId(report = true) {
-    this.set('data.foo', 'bar');
     let legacyId;
     try {
       legacyId = window.localStorage.getItem('browserId');
@@ -23,7 +22,7 @@ export default SessionService.extend({
       }
     }
 
-    let browserId = this.get('data.browserId');
+    let { browserId } = this.get('data');
     if (legacyId || browserId) {
       if (report) {
         reportBrowserId(legacyId || browserId);
