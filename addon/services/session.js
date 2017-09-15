@@ -5,8 +5,8 @@ import fetch from 'fetch';
 import getOwner from 'ember-owner/get';
 
 export default SessionService.extend({
-  attemptedTransition: null,
   syncBrowserId(report = true) {
+    this.set('data.foo', 'bar');
     let legacyId;
     try {
       legacyId = window.localStorage.getItem('browserId');
