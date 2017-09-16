@@ -27,7 +27,7 @@ hasPassword:        not('socialOnly')
 
 #### Network Requests
 
-Interacting with the backend service should be handled by other, higher-level addons, such as the [nypr-account-settings](https://github.com/nypublicradio/nypr-account-settings), but for reference, the requests related to the user model will be listed here. The expected [environment variables](#environment-variables) are detailed further below. Environment variables will be notated in angle brackets.
+Interacting with the backend service should be handled by other, higher-level addons, such as the [nypr-account-settings](https://github.com/nypublicradio/nypr-account-settings), but for reference, the requests related to the user model will be listed here. The expected [environment variables](#config-values) are detailed further below. Environment variables will be notated in angle brackets.
 
 Auth headers are added to all outgoing user-related requests.
 * `X-Provider`: string value hint for back end service if a third-party service (e.g. Facebook) provided the auth token
