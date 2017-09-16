@@ -148,7 +148,7 @@ The full host and pathname to the `browserID` endpoint. It's currently named `Et
 
 * `git clone git@github.com:nypublicradio/nypr-auth.git` this repository
 * `cd nypr-auth`
-* `npm install`
+* `yarn`
 
 ## Running
 
@@ -157,7 +157,7 @@ The full host and pathname to the `browserID` endpoint. It's currently named `Et
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
+* `yarn test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
