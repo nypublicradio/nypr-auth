@@ -1,7 +1,6 @@
 import ENV from 'ember-get-config';
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-import { camelize } from 'ember-string';
 const { keys } = Object;
 
 export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
@@ -28,7 +27,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
     serializer.serializeIntoHash(data, type, snapshot, { includeId: true });
 
     keys(data).forEach(k => {
-      if (!changed.includes(camelize(k))) {
+      if (!changed.includes(k)) {
         delete data[k];
       }
     });
