@@ -22,7 +22,8 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
     let data = {};
     let serializer = store.serializerFor(type.modelName);
     let url = this.buildURL(type.modelName, snapshot.id, snapshot, 'updateRecord');
-    let changed = keys(snapshot.record.changedAttributes());
+    let changed = keys(snapshot.record.changedAttributes())
+      .map(key => serializer.attrs[key] || serializer.keyForAttribute(key));
 
     serializer.serializeIntoHash(data, type, snapshot, { includeId: true });
 
