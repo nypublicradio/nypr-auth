@@ -14,8 +14,5 @@ export default DS.JSONAPISerializer.extend({
       json = Object.assign(json, { password: snapshot.record.get('typedPassword') });
     }
     return json;
-  },
-  serializeIntoHash(hash, typeClass, snapshot, options) {
-    Object.assign(hash, this.serialize(snapshot, options));
-  },
+  }
 });
