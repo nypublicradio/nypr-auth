@@ -27,7 +27,7 @@ hasPassword:        not('socialOnly')
 
 #### Network Requests
 
-Interacting with the backend service should be handled by other, higher-level addons, such as the [nypr-account-settings](https://github.com/nypublicradio/nypr-account-settings), but for reference, the requests related to the user model will be listed here. The expected [environment variables](#config-values) are detailed further below. Environment variables will be notated in angle brackets.
+Interacting with the backend service should be handled by other, higher-level addons, such as the [nypr-account-settings](https://github.com/nypublicradio/nypr-account-settings), but for reference, the requests related to the user model will be listed here. The expected [config values](#config-values) are detailed further below. Config values will be notated in angle brackets.
 
 Auth headers are added to all outgoing user-related requests.
 * `X-Provider`: string value hint for back end service if a third-party service (e.g. Facebook) provided the auth token
@@ -37,7 +37,7 @@ See the [auth microservice REST docs](http://docs.nyprauth.apiary.io) for more i
 
 #### Get Current User
 ```
-GET <AUTH_SERVICE>/v1/session
+GET <authAPI>/v1/session
 ```
 
 The call to the store to retrieve the current user is actually a `query`, instead of a `findRecord`, which is what the `ember-data` semantics would dictate. The reason for this is described in [this guide from `ember-simple-auth` on managing the current user](https://github.com/simplabs/ember-simple-auth/blob/master/guides/managing-current-user.md). This addon follows the pattern outlined there very closely.
@@ -45,24 +45,24 @@ The call to the store to retrieve the current user is actually a `query`, instea
 #### Create a User
 Post body is an object of field names and values for the new user.
 ```
-POST <AUTH_SERVICE>/v1/user
+POST <authAPI>/v1/user
 ```
 
 #### Update a User 
 ```
-PATCH <AUTH_SERVICE>/v1/user
+PATCH <authAPI>/v1/user
 ```
 Outgoing `PATCH` requests only include values for the fields that are changing, as specified by the JSON merge patch strategy outlined here: https://tools.ietf.org/html/rfc7396.
 
 #### Delete a User
 ```
-DELETE <AUTH_SERVICE>/v1/user
+DELETE <authAPI>/v1/user
 ```
 
 ### Authenticators and Authorizers
 
 #### `nypr` authenticator
-A basic extension of ESA's `OAuth2PasswordGrantAuthenticator`, specifying the `serverTokenEndpoint` as `<AUTH_SERVICE>/v1/session`.
+A basic extension of ESA's `OAuth2PasswordGrantAuthenticator`, specifying the `serverTokenEndpoint` as `<authAPI>/v1/session`.
 
 #### `torii` authenticator
 Overrides the `authenticate` and `getSession` methods of the basic torii authenticator to communicate with our auth service back end when a user to credentialed via a third-party API.
@@ -134,13 +134,13 @@ This method can be used to perform a basic check against the auth service with a
 ## Config Values
 This addon requires a small set of config values in order for it to connect to the correct back end services.
 
-##### `wnycAuthAPI`
+##### `authAPI`
 The host of the `auth` microservice backend. Used for most auth-related requests.
 
-##### `wnycAdminRoot`
+##### `adminRoot`
 Publisher's admin backend host. Used to see if the current session is authenticated as a staff user.
 
-##### `wnycEtagAPI`
+##### `etagAPI`
 The full host and pathname to the `browserID` endpoint. It's currently named `EtagAPI` for legacy reasons, but that is subject to change.
 
 
