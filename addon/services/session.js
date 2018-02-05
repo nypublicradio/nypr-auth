@@ -36,15 +36,17 @@ export default SessionService.extend({
   },
 
   staffAuth() {
-    fetch(`${config.adminRoot}/api/v1/is_logged_in/?bust_cache=${Math.random()}`, {
+    return fetch(`${config.adminRoot}/api/v1/is_logged_in/?bust_cache=${Math.random()}`, {
       credentials: 'include'
     })
     .then(checkStatus).then(r => r.json())
-    .then(({is_staff, name}) => {
+    .then(data => {
+      let { is_staff, name } = data;
       this.setProperties({
         'data.isStaff': is_staff,
         'data.staffName': name
       });
+      return data;
     });
   },
 
