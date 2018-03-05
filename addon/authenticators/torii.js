@@ -1,12 +1,12 @@
 import Torii from 'ember-simple-auth/authenticators/torii';
-import service from 'ember-service/inject';
+import { inject } from '@ember/service';
 import fetch from 'fetch';
 import RSVP from 'rsvp';
 import config from 'ember-get-config';
 import { decamelizeKeys } from 'nypr-auth/helpers/decamelize-keys';
 
 export default Torii.extend({
-  torii: service(),
+  torii: inject(),
 
   authenticate() {
     return new RSVP.Promise((resolve, reject) => {
