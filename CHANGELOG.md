@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.0.3
+- [CHORE] upgrade to Ember 2.17.2
+
 ## 0.0.2
 - [ENHANCEMENT] returns a promise from `staffAuth` so callers can chain with resolved values
 
