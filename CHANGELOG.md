@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.1.0
+- [CHORE] upgrade to Ember 3.0
+
 ## 0.0.3
 - [CHORE] upgrade to Ember 2.17.2
 
