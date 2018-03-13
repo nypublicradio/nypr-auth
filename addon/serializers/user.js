@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { underscore } from 'ember-string';
+import { underscore } from '@ember/string';
 
 export default DS.JSONAPISerializer.extend({
   attrs: {

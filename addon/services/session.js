@@ -2,7 +2,7 @@ import SessionService from 'ember-simple-auth/services/session';
 import config from 'ember-get-config';
 import RSVP from 'rsvp';
 import fetch from 'fetch';
-import getOwner from 'ember-owner/get';
+import { getOwner } from '@ember/application';
 
 export default SessionService.extend({
   syncBrowserId(report = true) {

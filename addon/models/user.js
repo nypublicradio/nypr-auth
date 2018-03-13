@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { equal, not } from 'ember-computed';
+import { equal, not } from '@ember/object/computed';
 const {
   Model,
   attr

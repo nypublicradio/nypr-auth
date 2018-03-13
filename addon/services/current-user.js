@@ -1,9 +1,8 @@
-import Service from 'ember-service';
-import service from 'ember-service/inject';
+import Service, { inject } from '@ember/service';
 
 export default Service.extend({
-  session: service('session'),
-  store: service(),
+  session: inject('session'),
+  store: inject(),
 
   load() {
     if (this.get('session.isAuthenticated')) {
