@@ -1,18 +1,44 @@
-machine:
-  node:
-    version: 7.10.0
+version: 2
 
-dependencies:
-  override:
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    - sudo apt-get update && sudo apt-get install yarn
-    - yarn:
-        environment:
-          PATH: "/usr/bin:${PATH}"
+jobs:
+  install:
+    docker:
+      - image: circleci/node:8.7
 
-test:
-  override:
-    - yarn test:
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install node dependencies
+          command: yarn --pure-lockfile
+      - save_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+
+  test:
+    docker:
+      - image: circleci/node:8.7-browsers
         environment:
-          PATH: "/usr/bin:${PATH}"
+          JOBS: 2
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Test
+          command: ./node_modules/ember-cli/bin/ember test
+
+workflows:
+  version: 2
+  just-test:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+
+
