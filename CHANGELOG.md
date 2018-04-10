@@ -1,7 +1,7 @@
 # nypr-auth Changelog
 
-## 0.1.1
-- [CHORE] update to avoid using deprecated authorizers 
+## 0.2.0
+- [CHORE] update to avoid using deprecated authorizers
 
 ## 0.1.0
 - [CHORE] upgrade to Ember 3.0
