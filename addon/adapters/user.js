@@ -4,7 +4,12 @@ import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 const { keys } = Object;
 
 export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
-  authorizer: 'authorizer:nypr',
+  authorize(xhr) {
+    let headers = this.get('session').authorize({});
+    for (var h in headers) {
+      xhr.setRequestHeader(h, headers[h]);
+    }
+  },
   host: config.authAPI,
   buildURL(modelName, id, snapshot, requestType, query) {
     if (/createRecord|updateRecord|deleteRecord/.test(requestType)) {

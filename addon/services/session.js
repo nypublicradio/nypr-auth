@@ -3,6 +3,8 @@ import config from 'ember-get-config';
 import RSVP from 'rsvp';
 import fetch from 'fetch';
 import { getOwner } from '@ember/application';
+import { isEmpty } from '@ember/utils';
+
 
 export default SessionService.extend({
   syncBrowserId(report = true) {
@@ -53,6 +55,21 @@ export default SessionService.extend({
   verify(email, password) {
     let authenticator = getOwner(this).lookup('authenticator:nypr');
     return authenticator.authenticate(email, password);
+  },
+
+  authorize(header){
+    let { provider, access_token } = this.get('data.authenticated');
+
+    try {
+      header['Authorization'] = `Bearer ${access_token}`;
+      if (!isEmpty(provider)) {
+        header['X-Provider'] = provider;
+      }
+    }
+    catch(error) {
+      console.warn(error); // eslint-disable-line no-console
+    }
+    return header;
   },
 });
 

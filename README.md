@@ -48,7 +48,7 @@ Post body is an object of field names and values for the new user.
 POST <authAPI>/v1/user
 ```
 
-#### Update a User 
+#### Update a User
 ```
 PATCH <authAPI>/v1/user
 ```
@@ -67,8 +67,9 @@ A basic extension of ESA's `OAuth2PasswordGrantAuthenticator`, specifying the `s
 #### `torii` authenticator
 Overrides the `authenticate` and `getSession` methods of the basic torii authenticator to communicate with our auth service back end when a user to credentialed via a third-party API.
 
-#### `nypr` authorizer
+#### `nypr` authorizer DEPRECATED
 The `nypr` authorizer is how the `X-Provider` header is added to outgoing requests. The auth backend uses this as a hint to determine which third-party server-side auth API it should use (if any) to authenticate the incoming access token.
+This use of authorizer has been deprecated since nypr-auth 0.1.1. ember-simple-auth started warning of deprecation since version 1.6.0, and will deprecate authorizers when they release version 2.0. Instead, the authorize function on the session service is overridden to add the `X-Provider` header.
 
 ### Services
 
@@ -93,15 +94,15 @@ The currently loaded user as an ember-data record.
 // app/routes/application.js
 export default Route.extend({
   currentUser: Ember.service.inject(),
-  
+
   beforeModel() {
     this.get('currentUser').load(); // makes a call to the back end and will set
                                     // the results to `user` when it resolves
-                                    // if the session is not authenticated, this is a 
+                                    // if the session is not authenticated, this is a
                                     // no op. if the session is expired or otherwise
                                     // rejected by the server, this will reload the app
   },
-  
+
   model() { ... }
 })
 ```
