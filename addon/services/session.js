@@ -58,7 +58,8 @@ export default SessionService.extend({
 
 function reportBrowserId(knownId) {
   fetch(config.etagAPI, {
-    headers: { 'X-WNYC-BrowserId': knownId }
+    headers: { 'X-WNYC-BrowserId': knownId },
+    credentials: 'include'
   });
 }
 
