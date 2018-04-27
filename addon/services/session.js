@@ -80,7 +80,7 @@ function reportBrowserId(knownId) {
 }
 
 function getBrowserId() {
-  return fetch(config.etagAPI)
+  return fetch(config.etagAPI, {credentials: 'include'})
     .then(checkStatus)
     .then(response => response.json());
 }
