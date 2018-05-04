@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.2.1
+- [ENHANCEMENT] #4 Add `credentials: include` to browserId fetch
+
 ## 0.2.0
 - [CHORE] update to avoid using deprecated authorizers
 
