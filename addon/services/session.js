@@ -75,12 +75,13 @@ export default SessionService.extend({
 
 function reportBrowserId(knownId) {
   fetch(config.etagAPI, {
-    headers: { 'X-WNYC-BrowserId': knownId }
+    headers: { 'X-WNYC-BrowserId': knownId },
+    credentials: 'include'
   });
 }
 
 function getBrowserId() {
-  return fetch(config.etagAPI)
+  return fetch(config.etagAPI, {credentials: 'include'})
     .then(checkStatus)
     .then(response => response.json());
 }
