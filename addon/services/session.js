@@ -26,13 +26,15 @@ export default SessionService.extend({
 
     let { browserId } = this.get('data');
     if (legacyId || browserId) {
+      let id = (legacyId || browserId).replace(/"/g, '')
       if (report) {
-        reportBrowserId(legacyId || browserId);
+        return reportBrowserId(id);
       }
       // some clients save their browserId with quotes
-      this.set('data.browserId', (legacyId || browserId).replace(/"/g, ''));
+      this.set('data.browserId', id);
+      return RSVP.Promise.resolve(id);
     } else {
-      getBrowserId()
+      return getBrowserId()
         .then( ({ browser_id }) => this.set('data.browserId', browser_id));
     }
   },
@@ -74,10 +76,10 @@ export default SessionService.extend({
 });
 
 function reportBrowserId(knownId) {
-  fetch(config.etagAPI, {
+  return fetch(config.etagAPI, {
     headers: { 'X-WNYC-BrowserId': knownId },
     credentials: 'include'
-  });
+  }).then(r => r.json()).then(({ browser_id }) => browser_id);
 }
 
 function getBrowserId() {
