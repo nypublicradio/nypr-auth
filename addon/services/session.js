@@ -57,7 +57,7 @@ export default SessionService.extend({
     return authenticator.authenticate(email, password);
   },
 
-  authorize(header){
+  authorize(header) {
     let { provider, access_token } = this.get('data.authenticated');
 
     try {
