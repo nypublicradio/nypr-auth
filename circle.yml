@@ -81,7 +81,7 @@ jobs:
             - nypr-auth
 
   test:
-    <<: *default
+    <<: *defaults
     working_directory: /home/circleci/nypr-auth
     environment:
       CIRCLE_TEST_REPORTS: test-results
