@@ -7,15 +7,12 @@ import { isEmpty } from '@ember/utils';
 
 
 export default SessionService.extend({
-  syncBrowserId(report = true) {
+  syncBrowserId() {
     let legacyId;
     try {
       legacyId = window.localStorage.getItem('browserId');
       if (legacyId) {
-        // some clients save their browserId with quotes
-        legacyId = legacyId.replace(/"/g, '');
-        // TODO: when other clients update to ESA, we can get rid of this key
-        window.localStorage.setItem('browserId', legacyId);
+        window.localStorage.removeItem('browserId');
       }
     } catch(e) {
       if (e.name === "SecurityError") {
@@ -24,17 +21,10 @@ export default SessionService.extend({
       }
     }
 
-    let { browserId } = this.get('data');
-    if (legacyId || browserId) {
-      if (report) {
-        reportBrowserId(legacyId || browserId);
-      }
-      // some clients save their browserId with quotes
-      this.set('data.browserId', (legacyId || browserId).replace(/"/g, ''));
-    } else {
-      getBrowserId()
-        .then( ({ browser_id }) => this.set('data.browserId', browser_id));
-    }
+    return fetch(config.etagAPI, {credentials: 'include'})
+      .then(checkStatus)
+      .then(response => response.json())
+      .then( ({ browser_id }) => this.set('data.browserId', browser_id));
   },
 
   staffAuth() {
@@ -72,19 +62,6 @@ export default SessionService.extend({
     return header;
   },
 });
-
-function reportBrowserId(knownId) {
-  fetch(config.etagAPI, {
-    headers: { 'X-WNYC-BrowserId': knownId },
-    credentials: 'include'
-  });
-}
-
-function getBrowserId() {
-  return fetch(config.etagAPI, {credentials: 'include'})
-    .then(checkStatus)
-    .then(response => response.json());
-}
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
