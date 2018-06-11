@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.2.2
+- [ENHANCEMENT] #5 resolve browserId sync with resolved value
+
 ## 0.2.1
 - [ENHANCEMENT] #4 Add `credentials: include` to browserId fetch
 
