@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.2.3
+- [ENHANCEMENT] #7 Add recaptcha key to payload if available
+
 ## 0.2.2
 - [ENHANCEMENT] #5 resolve browserId sync with resolved value
 
