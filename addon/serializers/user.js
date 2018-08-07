@@ -13,6 +13,11 @@ export default DS.JSONAPISerializer.extend({
     if (typedPassword) {
       json = Object.assign(json, { password: snapshot.record.get('typedPassword') });
     }
+
+    let captchaKey = snapshot.record.get('captchaKey');
+    if (captchaKey) {
+      json = Object.assign(json, { captcha_key: snapshot.record.get('captchaKey') });
+    }
     return json;
   }
 });
