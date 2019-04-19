@@ -1,15 +1,24 @@
 import config from 'ember-get-config';
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 const { keys } = Object;
 
-export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
-  authorize(xhr) {
+export default DS.JSONAPIAdapter.extend( AdapterFetch, DataAdapterMixin, {
+  // we are replacing authorize() here, since ember-fetch (needed for FastBoot)
+  // overrides ember-simple-auth's ajaxOptions method, which calls authorize().
+  // So instead, we do what we used to do in authorize() right here.
+  ajaxOptions(...args) {
+    const options = this._super(...args);
+    options.headers = {}
     let headers = this.get('session').authorize({});
     for (var h in headers) {
-      xhr.setRequestHeader(h, headers[h]);
+      options.headers[h] = headers[h];
     }
+
+    return options;
   },
+
   host: config.authAPI,
   buildURL(modelName, id, snapshot, requestType, query) {
     if (/createRecord|updateRecord|deleteRecord/.test(requestType)) {
