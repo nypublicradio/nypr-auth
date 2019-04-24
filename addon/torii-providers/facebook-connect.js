@@ -5,12 +5,14 @@ import { get } from '@ember/object';
 
 export default FacebookConnectProvider.extend({
   fastboot: service(),
-  isFastboot: reads('fastboot.isFastboot'),
+  isFastBoot: reads('fastboot.isFastBoot'),
 
-  fetch(data) {
-    if(get(this, 'isFastboot')) {
+  init() {
+    if(get(this, 'isFastBoot')) {
       return;
     }
-    return data;
-  }
+    else {
+      this._super(...arguments);
+    }
+  },
 });
