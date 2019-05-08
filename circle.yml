@@ -23,7 +23,7 @@ install_node: &install_node
 
 save_node: &save_node
   save_cache:
-    key: node-deps-{{ arch }}-{{ checksum "yarn.lock" }}
+    key: node-deps-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "circle.yml" }}
     paths:
       - node_modules
       - /home/circleci/.cache/Cypress
