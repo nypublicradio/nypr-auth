@@ -1,5 +1,9 @@
 # nypr-auth Changelog
 
+## 0.2.4
+- [ENHANCEMENT] fastboot compat
+- [CHORE] circle deployment fixes
+
 ## 0.2.3
 - [ENHANCEMENT] #7 Add recaptcha key to payload if available
 
