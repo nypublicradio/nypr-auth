@@ -1,5 +1,8 @@
 # nypr-auth Changelog
 
+## 0.2.5
+- [BUGFIX] bug from fastboot updates
+
 ## 0.2.4
 - [ENHANCEMENT] fastboot compat
 - [CHORE] circle deployment fixes
