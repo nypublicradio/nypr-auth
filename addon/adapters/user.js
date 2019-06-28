@@ -10,7 +10,7 @@ export default DS.JSONAPIAdapter.extend( AdapterFetch, DataAdapterMixin, {
   // So instead, we do what we used to do in authorize() right here.
   ajaxOptions(...args) {
     const options = this._super(...args);
-    options.headers = {}
+    options.headers = options.headers ? options.headers : {};
     let headers = this.get('session').authorize({});
     for (var h in headers) {
       options.headers[h] = headers[h];
